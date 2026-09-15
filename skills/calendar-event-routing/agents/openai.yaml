@@ -1,0 +1,4 @@
+interface:
+  display_name: "Calendar Event Routing"
+  short_description: "Route new events to the right calendar"
+  default_prompt: "Register a calendar event in the most relevant existing calendar based on its context."
