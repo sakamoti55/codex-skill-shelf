@@ -1,4 +1,4 @@
 interface:
-  display_name: "Skill Shelf Sync"
-  short_description: "Keep personal skills in the Skill Shelf repository"
-  default_prompt: "Use $skill-shelf-sync to sync my Codex skills into Skill Shelf."
+  display_name: "Skill Shelf同期"
+  short_description: "自作スキルだけをリポジトリと一覧サイトへ同期する"
+  default_prompt: "$skill-shelf-sync を使って、自作スキルをSkill Shelfへ同期してください。"

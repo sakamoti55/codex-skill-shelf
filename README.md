@@ -6,6 +6,6 @@ Private site: https://skill-shelf.kohseimeimei.chatgpt.site
 
 ## Sync
 
-`npm run sync:skills` copies every non-system skill from `~/.codex/skills` into `skills/` and regenerates the site catalog. `npm run build` refreshes the catalog from the repository before building.
+`npm run sync:skills` copies only the self-created skills listed in `owned-skills.json` from `~/.codex/skills` into `skills/` and regenerates the site catalog. `npm run build` refreshes the catalog from the repository before building.
 
-The repository intentionally excludes Codex system skills and plugin-managed caches.
+The repository intentionally excludes Codex system skills, plugin-managed caches, and installed skills that the user did not create.

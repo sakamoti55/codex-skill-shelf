@@ -1,19 +1,20 @@
 ---
 name: skill-shelf-sync
-description: Keep the user's personal Codex skills versioned and visible in Skill Shelf. Use after creating or updating a skill, or when the user asks to sync, publish, list, or back up their skills.
+description: ユーザー自身が作成したCodexスキルだけをGitで履歴管理し、Skill Shelfへ反映する。自作スキルの作成・更新後や、同期・公開・一覧・バックアップを依頼されたときに使う。
 ---
 
-# Skill Shelf Sync
+# Skill Shelf同期
 
-The Skill Shelf repository is `/Users/kose/Documents/Codex/2026-09-15/token/work/skill-studio`. Personal skills live in `/Users/kose/.codex/skills`.
+Skill Shelfのリポジトリは `/Users/kose/Documents/Codex/2026-09-15/token/work/skill-studio` にある。個人スキルは `/Users/kose/.codex/skills` にある。
 
-After a personal skill is created or changed:
+ユーザー自身のスキルを作成または更新した後は、次を行う。
 
-1. Validate the changed skill with the skill-creator validator.
-2. From the Skill Shelf repository, run `npm run sync:skills`. This copies every non-system top-level skill containing `SKILL.md` into `skills/` and regenerates the site catalog.
-3. Review the Git diff. Do not include secrets, caches, virtual environments, build outputs, or unrelated files.
-4. Run the site build.
-5. Commit and push the skill and catalog changes to the configured Git remote with a concise commit message.
-6. Publish the updated private Skill Shelf site unless the user requested local-only work. If publishing requires a separate authorization or is unavailable, finish the repository sync and report that the live site is pending.
+1. skill-creatorの検証ツールで、変更したスキルを検証する。
+2. 新しく自作したスキルの場合は、Skill Shelfリポジトリの `owned-skills.json` にスキル名を追加する。ユーザーが作成していない既存・導入済みスキルは追加しない。
+3. Skill Shelfリポジトリで `npm run sync:skills` を実行する。`owned-skills.json` に記載されたスキルだけを `skills/` へコピーし、サイトの一覧データを再生成する。
+4. Gitの差分を確認する。秘密情報、キャッシュ、仮想環境、ビルド成果物、無関係なファイルを含めない。
+5. サイトをビルドする。
+6. スキルと一覧データの変更を、簡潔なメッセージでコミットして設定済みのGitリモートへプッシュする。
+7. ユーザーがローカル限定を希望していなければ、更新した非公開Skill Shelfを公開する。別途認証が必要または公開できない場合は、リポジトリ同期まで完了し、サイト反映が保留であることを伝える。
 
-The repository is a versioned mirror of the discoverable personal skills directory. Do not copy `.system` skills or plugin-managed cache contents. Preserve complete skill folders, including their `agents`, `references`, `scripts`, and `assets` subdirectories.
+リポジトリは、自作スキルだけを保管する履歴付きミラーである。`.system`、プラグイン管理のキャッシュ、ユーザーが作成していない導入済みスキルはコピーしない。対象スキルについては、`agents`、`references`、`scripts`、`assets` を含むフォルダ全体を保持する。

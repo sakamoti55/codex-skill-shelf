@@ -1,4 +1,4 @@
 interface:
-  display_name: "Calendar Event Routing"
-  short_description: "Route new events to the right calendar"
-  default_prompt: "Register a calendar event in the most relevant existing calendar based on its context."
+  display_name: "カレンダー振り分け"
+  short_description: "予定の内容から適切な所属カレンダーへ振り分ける"
+  default_prompt: "$calendar-event-routing を使って、この予定を適切なカレンダーへ登録してください。"

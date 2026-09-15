@@ -1,32 +1,32 @@
 ---
 name: calendar-event-routing
-description: Route new Google Calendar events to the user's existing calendar by inferring the event's context (for example, job-hunting events go to the 「就活」 calendar). Use when the user asks to add, schedule, or register an event.
+description: Googleカレンダーへ予定を追加するとき、内容から文脈を読み取り、既存の適切な所属カレンダーへ振り分ける。予定の追加・登録・スケジュールを依頼されたときに使う。
 ---
 
-# Calendar Event Routing
+# カレンダー振り分け
 
-When registering an event, choose its owning calendar from the event content before creating it. The calendar choice is more important than the event color: do not simulate a calendar assignment by changing `color_id` on the primary calendar.
+予定を登録するときは、作成前に内容から所属カレンダーを選ぶ。所属カレンダーと予定の色は別物である。メインカレンダー上の `color_id` を変えることで、所属変更を代用しない。
 
-## Routing
+## 振り分け
 
-Infer the most relevant category from the title, organizer, venue, URL, and surrounding user message. Use these mappings when the corresponding calendar exists:
+タイトル、主催者、会場、URL、依頼文の文脈から、最も関連するカテゴリを推測する。対応するカレンダーが存在するときは、次の振り分けを使う。
 
-- Job hunting, recruiting, company interviews, information sessions, selection steps, entry sheets, or career fairs → 「就活」
-- Graduate-school classes, lectures, seminars, or coursework → 「大学院前期　授業」
-- Work shifts or employer-related work → 「バイト」
-- Club or student-organization activities → 「サークル関係」
-- Driving-school lessons or tests → 「教習所」
-- Birthdays → 「誕生日」
-- Personal to-dos/reminders → 「ToDo リスト」
+- 就職活動、採用、企業面談、説明会、選考、エントリーシート、就活イベント → 「就活」
+- 大学院の授業、講義、ゼミ、課題 → 「大学院前期　授業」
+- シフト、勤務先に関する予定 → 「バイト」
+- サークルや学生団体の活動 → 「サークル関係」
+- 教習、技能試験、学科試験 → 「教習所」
+- 誕生日 → 「誕生日」
+- 個人のタスクやリマインダー → 「ToDo リスト」
 
-Treat the user's explicit category as authoritative. If the context clearly implies a category, use it without asking the user to repeat it. If two categories are genuinely plausible or no matching calendar exists, ask a concise clarification rather than silently using the primary calendar.
+ユーザーがカテゴリを明示した場合は、それを優先する。文脈から明確に判断できる場合は、カテゴリを言い直してもらわずに選択する。複数のカテゴリが同程度に考えられる場合や、該当するカレンダーが存在しない場合は、メインカレンダーへ黙って登録せず、短く確認する。
 
-## Calendar operations
+## カレンダー操作
 
-1. List the user's calendars and match by the exact visible summary (for example, 「就活」). Use the returned calendar `id` as `calendar_id`.
-2. Create the event directly on that calendar. Do not create it on `primary` and then recolor it.
-3. Preserve all supplied details: date, start time, end time or a clearly stated duration assumption, timezone, location, and links. Put an externally supplied Google Meet URL in the description and set `add_google_meet` to false.
-4. Before creating, search the target calendar in the requested time window when a duplicate is reasonably possible. Avoid creating a second copy of the same event.
-5. For an already-created event on the wrong calendar, only perform a move (create on the target calendar and remove the old copy) when the user has asked to correct or move it; otherwise leave it unchanged and explain the limitation.
+1. ユーザーのカレンダー一覧を取得し、表示名（例：「就活」）が完全一致するカレンダーを探す。返された `id` を `calendar_id` に使う。
+2. 選んだカレンダーへ予定を直接作成する。`primary` に作成してから色を変える方法は使わない。
+3. 日付、開始時刻、終了時刻（または明示した所要時間の仮定）、タイムゾーン、場所、リンクを保持する。外部から渡されたGoogle Meet URLは説明欄へ入れ、`add_google_meet` は false にする。
+4. 重複の可能性がある場合は、作成前に対象カレンダーの該当時間帯を検索し、同じ予定を二重登録しない。
+5. すでに誤ったカレンダーへ作成された予定は、ユーザーが修正または移動を依頼した場合だけ、正しいカレンダーへの再作成と元予定の削除を行う。それ以外では変更せず、制約を説明する。
 
-The event's calendar membership is the category/tag the user means in this workflow. Event color is a separate setting and should only be changed when explicitly requested.
+この運用でユーザーが言うカテゴリやタグは、予定の所属カレンダーを指す。予定単体の色は別設定であり、明示的に頼まれた場合だけ変更する。

@@ -5,6 +5,7 @@ import { join, relative } from 'node:path';
 const root = new URL('..', import.meta.url).pathname;
 const repositorySkills = join(root, 'skills');
 const generatedFile = join(root, 'app', 'generated-skills.ts');
+const ownedSkillsFile = join(root, 'owned-skills.json');
 const copyLocal = process.argv.includes('--copy-local');
 const localSkills = process.env.CODEX_SKILLS_SOURCE ?? join(homedir(), '.codex', 'skills');
 
@@ -45,11 +46,12 @@ function category(name, description) {
 }
 
 async function copyPersonalSkills() {
+  const ownedSkills = new Set(JSON.parse(await readFile(ownedSkillsFile, 'utf8')));
   await rm(repositorySkills, { recursive: true, force: true });
   await mkdir(repositorySkills, { recursive: true });
   const entries = await readdir(localSkills, { withFileTypes: true });
   for (const entry of entries) {
-    if (!entry.isDirectory() || entry.name.startsWith('.')) continue;
+    if (!entry.isDirectory() || !ownedSkills.has(entry.name)) continue;
     const source = join(localSkills, entry.name);
     try { await stat(join(source, 'SKILL.md')); } catch { continue; }
     await cp(source, join(repositorySkills, entry.name), {
@@ -85,7 +87,7 @@ async function buildCatalog() {
   skills.sort((a, b) => a.name === 'calendar-event-routing' ? -1 : b.updated.localeCompare(a.updated) || a.name.localeCompare(b.name));
   const contents = `export const skills = ${JSON.stringify(skills, null, 2)} as const;\n`;
   await writeFile(generatedFile, contents, 'utf8');
-  console.log(`Generated catalog with ${skills.length} skills.`);
+  console.log(`Generated catalog with ${skills.length} self-created skills.`);
 }
 
 if (copyLocal) await copyPersonalSkills();
