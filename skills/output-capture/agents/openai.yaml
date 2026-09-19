@@ -1,0 +1,4 @@
+interface:
+  display_name: "Output Capture"
+  short_description: "Capture and organize Obsidian outputs"
+  default_prompt: "Capture this as an output in Obsidian, or organize pending outputs if requested."
