@@ -1,6 +1,6 @@
 ---
 name: output-capture
-description: Capture GPT/Codex outputs into the user's Obsidian inbox, or organize pending Obsidian outputs into knowledge, tasks, and a daily summary. Use when the user asks to save an output/inbox, or when the recurring output整理 workflow runs.
+description: GPTやCodexの出力をユーザーのObsidian受信箱に保存したり、未整理の出力を知識・タスク・日次サマリーに整理したりする。出力の保存や受信箱への追加、出力整理を依頼されたとき、または定期的な整理処理を実行するときに使う。
 ---
 
 # Output Capture
