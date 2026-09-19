@@ -1,11 +1,15 @@
 # Skill Shelf
 
-Personal Codex skills, versioned with Git and presented as a searchable private library.
+Gitで管理している自作Codex Skillを、検索・閲覧できる個人ライブラリとして公開しています。
 
-Private site: https://skill-shelf.kohseimeimei.chatgpt.site
+公開サイト: https://skill-shelf.kohseimeimei.chatgpt.site
 
-## Sync
+## 同期
 
-`npm run sync:skills` copies only the self-created skills listed in `owned-skills.json` from `~/.codex/skills` into `skills/` and regenerates the site catalog. `npm run build` refreshes the catalog from the repository before building.
+`npm run sync:skills` は、`owned-skills.json` に登録された自作Skillだけを `~/.codex/skills` から `skills/` にコピーし、サイトの一覧データを再生成します。
 
-The repository intentionally excludes Codex system skills, plugin-managed caches, and installed skills that the user did not create.
+`npm run build` は、リポジトリ内のSkillから一覧データを更新してからサイトをビルドします。
+
+## 収録対象
+
+このリポジトリには、CodexのシステムSkill、プラグイン管理のキャッシュ、ユーザーが作成していない導入済みSkillは含めません。
