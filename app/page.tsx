@@ -41,9 +41,9 @@ export default function Home() {
       </header>
 
       <section id="top" className="hero">
-        <p className="eyebrow">YOUR CODEX SKILLS</p>
-        <h1>使えるスキルを、<br />ひと目で。</h1>
-        <p className="lead">GPTで作ったスキルをリポジトリから自動で読み込み、探しやすいカードにまとめます。</p>
+        <p className="eyebrow">個人用ライブラリ</p>
+        <h1>Skill Shelf</h1>
+        <p className="lead">自分で作成したCodex Skillを、検索して使うための一覧です。</p>
         <div className="search-wrap">
           <span aria-hidden="true">⌕</span>
           <input ref={searchRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="スキル名や説明で検索" aria-label="スキルを検索" />
