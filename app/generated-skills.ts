@@ -9,11 +9,19 @@ export const skills = [
   },
   {
     "name": "output-capture",
-    "label": "Output Capture",
+    "label": "アウトプット保存",
     "category": "Utility",
     "description": "Capture GPT/Codex outputs into the user's Obsidian inbox, or organize pending Obsidian outputs into knowledge, tasks, and a daily summary. Use when the user asks to save an output/inbox, or when the recurring output整理 workflow runs.",
     "updated": "2026-09-19",
     "repositoryUrl": "https://github.com/sakamoti55/codex-skill-shelf/tree/main/skills/output-capture"
+  },
+  {
+    "name": "skill-generator",
+    "label": "Skill生成",
+    "category": "Utility",
+    "description": "新しいCodex Skillを作成・更新し、検証、Skill Shelfへの同期、公開まで行う。Skillを作りたい、登録したい、掲載したい、またはこの作業自体をSkill化したいと依頼されたときに使う。",
+    "updated": "2026-09-19",
+    "repositoryUrl": "https://github.com/sakamoti55/codex-skill-shelf/tree/main/skills/skill-generator"
   },
   {
     "name": "skill-shelf-sync",

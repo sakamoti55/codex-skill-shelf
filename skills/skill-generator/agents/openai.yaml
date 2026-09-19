@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill生成"
+  short_description: "Skillを作成・検証・Shelf掲載まで自動化"
+  default_prompt: "$skill-generator を使って、新しいCodex Skillを作成し、検証してSkill Shelfへ掲載してください。"
