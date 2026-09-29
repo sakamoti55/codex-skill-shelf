@@ -2,7 +2,7 @@
 
 Gitで管理している自作Codex Skillを、検索・閲覧できる個人ライブラリとして公開しています。
 
-公開サイト: https://skill-shelf.kohseimeimei.chatgpt.site
+公開サイト: https://skill-shelf.skmtech.jp
 
 ## 同期
 
@@ -19,6 +19,8 @@ Pull RequestではLintとビルドを実行します。`main` へのpushでは�
 - Repository variable: `CLOUDFLARE_ACCOUNT_ID`
 - Repository variable: `CLOUDFLARE_DEPLOY_ENABLED=true`
 - Repository secret: `CLOUDFLARE_API_TOKEN`
+
+公開ドメインは `skmtech.jp` 配下を使います。Skill Shelfは `skill-shelf.skmtech.jp` です。
 
 ## 収録対象
 

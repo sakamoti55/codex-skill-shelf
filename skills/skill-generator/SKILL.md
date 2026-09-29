@@ -14,6 +14,7 @@ description: 新しいCodex Skillを作成・更新し、検証、Skill Shelfへ
 - 必須の `SKILL.md` と、必要な場合だけ `agents/openai.yaml`、`scripts/`、`references/`、`assets/` を作成する。
 - 自作Skillの説明、見出し、本文、UI表示文は原則として日本語で作成・更新する。Skill名、コード、コマンド、API名、ファイルパスなどの識別子は英語のままでよい。ユーザーが別の言語を明示した場合はその指定を優先する。
 - 既存Skillに英語の説明文が残っている場合は、意味と制約を保って日本語へ直す。外部提供Skillやシステム管理Skillは改変しない。
+- Webサイトを作成・公開する場合は、ユーザーが指定した独自ドメインを優先し、`kohseimeimei.chatgpt.site` を既定の公開先として使わない。今回の公開先は `skmtech.jp` 配下とする。
 - `SKILL.md` には、適用条件、目的、判断に必要な制約だけを書く。ユーザーが明示していない外部操作や権限を暗黙に追加しない。
 - `agents/openai.yaml` のUI表示名・短い説明・既定プロンプトはSkillの内容と一致させる。通常は自動選択を有効にする。
 
