@@ -28,8 +28,8 @@ description: 新しいCodex Skillを作成・更新し、検証、Skill Shelfへ
 5. 差分を確認し、秘密情報、キャッシュ、ビルド成果物、無関係なファイルを含めない。
 6. `npm run build` と、必要に応じて `npm run lint` を実行する。
 7. 簡潔なコミットを作成して、設定済みリモートへプッシュする。
-8. Sitesの現在の公開設定を維持してSkill Shelfを公開する。参照用に公開されている場合は、認証なしの公開状態を非公開へ戻さない。ローカル限定の場合は、同期・コミット・公開を行わない。
+8. `main` へのpush後、GitHub Actionsの `Skill Shelf CI/CD` を確認する。デプロイ設定が有効なら、検証後にCloudflare Workersへ自動反映されるまで待つ。デプロイ用の資格情報または有効化設定が不足している場合は、リポジトリ同期まで完了し、サイト反映が保留であることを報告する。ローカル限定の場合は、同期・コミット・公開を行わない。
 
-Skill Shelfのリポジトリは `/Users/kose/Documents/Codex/2026-09-15/token/work/skill-studio`、個人Skillの場所は `/Users/kose/.codex/skills` とする。Skill Shelfの公開・アクセス変更ではSitesの手順を使い、ユーザーが明示しない限り公開範囲を変更しない。
+Skill Shelfのリポジトリは `/Users/kose/Documents/Codex/2026-09-15/token/work/skill-studio`、個人Skillの場所は `/Users/kose/.codex/skills` とする。公開はリポジトリのCI/CDを正本とし、ユーザーが明示しない限り公開範囲やドメインを変更しない。
 
-完了時は、作成または更新したSkill名、検証・ビルド結果、Skill ShelfのURLを簡潔に報告する。
+完了時は、作成または更新したSkill名、検証・ビルド・CI/CDの結果、Skill ShelfのURLを簡潔に報告する。
