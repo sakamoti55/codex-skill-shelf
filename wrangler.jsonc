@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "codex-skill-shelf",
+  "account_id": "bd6022bab607c76f306d3a313431d8f6",
+  "compatibility_date": "2026-09-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "vinext/server/app-router-entry",
+  "assets": {
+    "not_found_handling": "none"
+  }
+}

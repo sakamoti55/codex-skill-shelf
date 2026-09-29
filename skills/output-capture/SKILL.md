@@ -1,57 +1,69 @@
 ---
 name: output-capture
-description: GPTやCodexの出力をユーザーのObsidian受信箱に保存したり、未整理の出力を知識・タスク・日次サマリーに整理したりする。出力の保存や受信箱への追加、出力整理を依頼されたとき、または定期的な整理処理を実行するときに使う。
+description: GPTやCodexで生まれたアウトプットを、Obsidian内の現在のプロジェクトへ即時に整理して保存するか、プロジェクト外では共通Inboxへ蓄積し、未整理項目を知識・タスク・日次サマリーへ整理する。プロジェクト内で学習・研究・活動の記録を残すとき、出力の保存や整理を頼まれたとき、または定期整理で使う。
 ---
 
-# Output Capture
+# アウトプット保存
 
-Use the canonical Obsidian Vault through `/Users/kose/Documents/ChatGPT/Obsidian タスク管理/sakamoti55`. It is an intentional symlink to the user's iCloud Vault; do not copy it or create a second Vault. Read the project's `AGENTS.md` and `sakamoti55/99_System/Config/保管庫運用ルール.md` before changing files.
+正規のObsidian保管庫は `/Users/kose/Documents/ChatGPT/Obsidian タスク管理/sakamoti55` から使用する。このパスは `/Users/kose/Library/Mobile Documents/iCloud~md~obsidian/Documents/sakamoti55` への意図的なシンボリックリンクである。両方を同じ保管庫として扱い、別の保管庫を複製しない。ファイルを変更する前に、プロジェクトの `AGENTS.md` と `sakamoti55/99_System/Config/保管庫運用ルール.md` を読む。
 
-This skill has two modes. Choose based on the user's request or the scheduled prompt.
+依頼内容または定期実行の指示から、保存モードか整理モードを選ぶ。
 
-## Capture mode
+## 保存モード
 
-Use when the user asks to save a GPT/Codex output, put something in the inbox, or otherwise capture the text for later整理.
+ユーザーがアウトプットの保存を頼んだとき、プロジェクト内の実質的な会話を残す方針を示したとき、または学び・結論・判断・進捗として残す内容が生まれたときに使う。挨拶、一時的な状況報告、雑談まで無差別に保存しない。
 
-- Append under `sakamoti55/90_Inbox/Inbox.md` → `## Capture`.
-- Use `- [ ] YYYY-MM-DD HH:mm <content>` with the current local date and time (Asia/Tokyo).
-- Preserve the user's wording and meaning. Do not classify, summarize, or create a task while capturing.
-- Do not capture every chat message automatically; capture only the content the user identifies as an output or asks to save.
-- Report the file written and the captured text briefly.
+### 保存先と扱い方
 
-## Organize mode
+1. **プロジェクト内のアウトプット**：現在のCodexワークスペース、作業中のプロジェクトフォルダ、またはユーザーが指定したフォルダが正規保管庫内の具体的なプロジェクトである場合、内容をその場で整理し、読みやすいプロジェクトノートへ保存する。最も関連する既存ノートを更新するか、プロジェクト内に内容の分かる名前でテーマ別・資料別ノートを作る。通常のプロジェクト内アウトプットを、未整理のCaptureへ一旦追加しない。
+2. **共通の一時保存**：保管庫内のプロジェクトを特定できない場合、ワークスペースが保管庫直下または集約・システム用フォルダの場合、保存先の判断が曖昧な場合は、従来どおり `sakamoti55/90_Inbox/Inbox.md` の `## Capture` へ追加する。
 
-Use when the user asks to整理, or when a scheduled run invokes this skill. Process all pending items regardless of their date.
+`00_HOME`、`01_Daily`、`02_Outputs`、`03_Goals`、`90_Inbox`、`98_Archive`、`99_System` などは、プロジェクト固有の保存先ではなく、集約・システム用フォルダとして扱う。ワークスペースルートが複数ある場合は、会話内容と明確に一致する保管庫内のルートを使い、判断できなければ共通Inboxを使う。
 
-### Inputs
+- プロジェクト内では会話順ではなくテーマを軸に整理する。意味のある見出し、短い段落、箇条書きを使い、進捗や現在地が含まれる場合は明記する。
+- 関連する既存内容へ統合し、重複ノートや同じ説明の繰り返しを避ける。
+- 新規ノートは、本・テーマ・実験・会議・成果物など、継続して使える対象の名前を付ける。明確な入口ノートがある場合は、そこからWikiリンクを張る。
+- ユーザーの意味と確実性を保つ。読みやすさは改善してよいが、事実や結論を推測で追加しない。
+- 共通Inboxへ保存する場合は、日本時間で `- [ ] YYYY-MM-DD HH:mm <内容>` の形式を使う。この段階では分類、要約、タスク化をしない。
+- 既知のプロジェクトワークスペースはフォルダ指定済みとして扱い、ユーザーにパスを言い直してもらわない。
+- 保存後は、書き込んだファイルと保存内容を簡潔に報告する。
 
-- Unchecked, non-empty checkbox items under `sakamoti55/90_Inbox/Inbox.md` → `## Capture`.
-- Non-empty bullet items under `## アウトプット` in every file below `sakamoti55/01_Daily/` that do not already have a `整理済み` HTML comment at the end of the line.
-- For backward compatibility, also read `## 気づき（素材）` and `## アウトプット候補` in older Daily notes.
-- Ignore blank placeholders and checkboxes under other headings.
+## 整理モード
 
-### Changes
+ユーザーが整理を依頼したとき、または定期実行から呼び出されたときに使う。日付に関係なく、未処理の項目をすべて対象とする。
 
-- Integrate each item into an existing file in `sakamoti55/02_Outputs/Categories/`, using the content to choose the category. Keep one concise line (about 80 Japanese characters or less), avoid duplicate meanings, and add at most one Wiki link to the source when useful. Put uncategorized everyday insights in `90_生活・自己理解.md`.
-- Only create or update a task in `sakamoti55/00_HOME/TASKS.md` when the text clearly expresses an intention to act (for example, buy, research, book, submit, or apply). Use a concrete `verb + completion condition` under the appropriate Next Actions category. Do not turn an observation or vague wish into a task, duplicate an existing task, or infer completion.
-- After processing, change Inbox items to `[x]` without deleting their original text. Add `<!-- 整理済み: YYYY-MM-DD -->` to processed Daily lines.
-- Append a timestamped change summary to `sakamoti55/99_System/Logs/アウトプット整理.md`. If there are no pending items, do not change Outputs, TASKS, or the log.
+### 入力
 
-### Daily summary
+- 保管庫内のプロジェクトに残っている、旧形式または判断保留用の `Codexアウトプット.md` の `## Capture` にある、未完了かつ空でない項目。
+- `sakamoti55/90_Inbox/Inbox.md` の `## Capture` にある、未完了かつ空でない項目。
+- `sakamoti55/01_Daily/` 以下の各ファイルにある `## アウトプット` 内の、空でなく、行末に `整理済み` のHTMLコメントがない箇条書き。
+- 古いDailyとの互換性のため、`## 気づき（素材）` と `## アウトプット候補` も同じ条件で読む。
+- 空のプレースホルダーと、対象外の見出しにあるチェックボックスは無視する。
 
-Every organize run must update the current Daily note at `sakamoti55/01_Daily/YYYY/MM/YYYY-MM-DD.md`. If it does not exist, create it using the structure of `sakamoti55/99_System/Templates/temp_daily_notes.md`, resolving the date and links rather than leaving template expressions.
+### 振り分けと統合
 
-Replace only the content between `<!-- AUTO_SUMMARY_START -->` and `<!-- AUTO_SUMMARY_END -->` under `## 今日のまとめ（自動）`; if the section or markers are missing, insert them immediately before `## 終了`. Summarize the current day's Daily outputs and today's dated Inbox entries, including:
+- 旧形式のプロジェクト内Captureは、同じプロジェクト内で適切なテーマ別ノートを選ぶか作成し、すぐに読みやすく整理する。役立つ場合はCapture元へのWikiリンクを付ける。
+- 内容が短い再利用可能な結論だけで、プロジェクトノートを作るほどではない場合は、`sakamoti55/02_Outputs/Categories/` 内の対応カテゴリへ統合する。どちらの保存先も妥当でなければ、未完了のまま残して判断保留として報告する。
+- 共通InboxとDailyの入力は、対応するカテゴリ別Outputsへ統合する。カテゴリ内の1項目は原則80文字程度の簡潔な1行とし、同じ意味を重複させず、必要な場合だけ元ノートへのリンクを1つ付ける。分類できない日常の気づきは `90_生活・自己理解.md` へ入れる。
+- 本人の実行意思が明確な場合だけ `sakamoti55/00_HOME/TASKS.md` を追加または更新する。適切なNext Actionsカテゴリに「動詞 + 完了条件」で書く。観察や曖昧な希望をタスク化せず、既存タスクを重複させず、完了を推測しない。
+- 統合できたCaptureは原文を削除せず `[x]` にする。処理したDaily行の末尾には `<!-- 整理済み: YYYY-MM-DD -->` を付ける。判断保留の項目は変更しない。
+- 処理内容を `sakamoti55/99_System/Logs/アウトプット整理.md` へ日時付きで追記する。新たに処理した項目がなければ、カテゴリ別Outputs、TASKS、整理ログを変更しない。
+
+### Dailyの自動まとめ
+
+整理を実行するたびに、当日のDaily `sakamoti55/01_Daily/YYYY/MM/YYYY-MM-DD.md` を更新する。存在しない場合は `sakamoti55/99_System/Templates/temp_daily_notes.md` を使い、日付とリンクを実値へ置き換えて作成する。
+
+`## 今日のまとめ（自動）` 内の `<!-- AUTO_SUMMARY_START -->` と `<!-- AUTO_SUMMARY_END -->` の間だけを置き換える。見出しまたはマーカーがない場合は、`## 終了` の直前へ追加する。当日のDailyアウトプット、共通Inbox、プロジェクト内Captureの当日分を読み、次をまとめる。
 
 - 最終更新日時
 - 今日の主な気づき・アウトプット
 - 今日または今回タスク化したこと
 - 判断保留
 
-Write `なし` when a section has no items. The evening run replaces the morning summary with the full day-to-date summary; do not append duplicate summaries.
+該当項目がない欄は `なし` と書く。21時の実行では9時版へ追記せず、その日全体の内容へ置き換える。
 
-Always return the same concise summary in the Codex result, including counts for newly integrated outputs, added/updated tasks, and pending decisions, even when all counts are zero.
+Codexの実行結果にも同じ簡潔なまとめを表示し、新規統合件数、追加または更新したタスク件数、判断保留件数を含める。
 
-## Boundaries
+## 変更範囲
 
-Only edit the Inbox, Daily notes, category Outputs, `00_HOME/TASKS.md`, the output整理 log, and the current project's guidance when explicitly asked. Do not delete source notes, modify unrelated Obsidian sections, or browse the web for ordinary capture/整理.
+変更してよいのは、Captureファイル、Daily、入力元と同じプロジェクト内の関連ノート、カテゴリ別Outputs、`00_HOME/TASKS.md`、アウトプット整理ログ、および明示的に更新を頼まれたプロジェクト案内だけとする。元ノートを削除せず、無関係なセクションを変更せず、通常の保存・整理でWeb検索を行わない。
