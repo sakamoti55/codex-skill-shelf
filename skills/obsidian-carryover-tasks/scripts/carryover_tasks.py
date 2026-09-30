@@ -15,7 +15,7 @@ AUTO_START = "<!-- AUTO_CARRYOVER_START -->"
 AUTO_END = "<!-- AUTO_CARRYOVER_END -->"
 TASK_LINE = re.compile(r"^\s*- \[ \] (.+?)\s*$")
 HEADING = re.compile(r"^###\s+(.+?)\s*$")
-TASK_LINK = re.compile(r"^\s*- \[\[00_HOME/TASKS#([^|\]]+)\|([^\]]+)\]\]\s*$")
+TASK_LINK = re.compile(r"^\s*- (?:\[ \] )?\[\[00_HOME/TASKS#([^|\]]+)\|([^\]]+)\]\]\s*$")
 DUE_DATE = re.compile(r"📅\s*(\d{4}-\d{2}-\d{2})")
 
 
@@ -27,7 +27,7 @@ class Task:
 
     @property
     def link(self) -> str:
-        return f"- [[00_HOME/TASKS#{self.section}|{self.label}]]"
+        return f"- [ ] [[00_HOME/TASKS#{self.section}|{self.label}]]"
 
 
 def task_label(raw: str) -> str:
