@@ -1,0 +1,6 @@
+interface:
+  display_name: "Obsidian未完了タスク繰越"
+  short_description: "昨日以前の未完了タスクを今日のDailyへ繰り越す"
+  default_prompt: "$obsidian-carryover-tasks を使って、昨日までの未完了タスクを今日のタスクへ追加してください。"
+policy:
+  allow_implicit_invocation: true
